@@ -3,25 +3,216 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --color-primary: hsl(
+    var(--primary-color-h),
+    var(--primary-color-s),
+    var(--primary-color-l)
+  );
+
+  --color-primary--light: hsl(
+    var(--primary-color-h),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--lighten))
+  );
+  --color-primary--lighter: hsl(
+    var(--primary-color-h),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--lighten) * 1.5)
+  );
+  --color-primary--lightest: hsl(
+    var(--primary-color-h),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--lighten) * 2.15)
+  );
+
+  --color-primary--dark: hsl(
+    var(--primary-color-h),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--darken))
+  );
+  --color-primary--darker: hsl(
+    var(--primary-color-h),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--darken) * 1.5)
+  );
+  --color-primary--darkest: hsl(
+    var(--primary-color-h),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--darken) * 2.15)
+  );
+
+  --color-secondary: hsl(
+    calc(var(--primary-color-h) + 180),
+    var(--primary-color-s),
+    var(--primary-color-l)
+  );
+
+  --color-secondary--light: hsl(
+    calc(var(--primary-color-h) + 180),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--lighten))
+  );
+  --color-secondary--lighter: hsl(
+    calc(var(--primary-color-h) + 180),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--lighten) * 2)
+  );
+  --color-secondary--lightest: hsl(
+    calc(var(--primary-color-h) + 180),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--lighten) * 2.25)
+  );
+
+  --color-secondary--dark: hsl(
+    calc(var(--primary-color-h) + 180),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--darken))
+  );
+  --color-secondary--darker: hsl(
+    calc(var(--primary-color-h) + 180),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--darken) * 2)
+  );
+  --color-secondary--darkest: hsl(
+    calc(var(--primary-color-h) + 180),
+    var(--primary-color-s),
+    calc(var(--primary-color-l) + var(--darken) * 2.25)
+  );
+
+  --color-accent-one: hsl(
+    calc(var(--primary-color-h) + 45),
+    var(--primary-color-s),
+    var(--primary-color-l)
+  );
+  --color-accent-two: hsl(
+    calc(var(--primary-color-h) + 90),
+    var(--primary-color-s),
+    var(--primary-color-l)
+  );
+  --color-accent-three: hsl(
+    calc(var(--primary-color-h) - 45),
+    var(--primary-color-s),
+    var(--primary-color-l)
+  );
+  --color-accent-four: hsl(
+    calc(var(--primary-color-h) - 90),
+    var(--primary-color-s),
+    var(--primary-color-l)
+  );
+
+  /* make adjustments here*/
+  --primary-color-h: 225;
+  --primary-color-s: 45%;
+  --primary-color-l: 25%;
+  --lighten: 20%;
+  --darken: -10%;
+
+  --color-background--light: var(--color-primary--light);
+  --color-background--dark: var(--color-primary--darker);
+  --color-headings--light: var(--color-secondary--lighter);
+  --color-headings--dark: var(--color-secondary--dark);
+  --color-text--light: var(--color-secondary--light);
+  --color-text--dark: var(--color-secondary--dark);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--color-text--light);
+  font-size: 1rem;
+  background-color: var(--color-background--dark);
+  padding: 0 1.25rem;
+  line-height: 1.5;
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-weight: 400;
+  color: var(--color-headings--light);
+  letter-spacing: 0.05em;
+}
+
+h1,
+.h1 {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+h2,
+.h2 {
+  font-size: 3rem;
+  line-height: 1;
+}
+h3,
+.h3 {
+  font-size: 2.25rem;
+  line-height: 2;
+}
+h4,
+.h4 {
+  font-size: 1.9rem;
+  line-height: 1.75;
+}
+h5,
+.h5 {
+  font-size: 1.5rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+}
+h6,
+.h6 {
+  font-size: 1rem;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.075em;
+}
+
+a {
+  color: var(--color-secondary--lighter);
+  transition: color 0.2s ease-in-out;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  opacity: 0.9;
+}
+
+a:hover,
+a:focus,
+a:active {
+  opacity: 1;
+}
+
+button,
+.button {
+  color: var(--color-secondary--lighter);
+  border: 2px solid white;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 8px;
+  background: var(--color-accent-one);
+  transition: 0.2s ease-in-out;
+  opacity: 1;
+}
+
+button:hover,
+.button:hover,
+button:focus,
+.button:focus,
+button:active,
+.button:active {
+  cursor: pointer;
+  color: var(--color-secondary--lightest);
+  background-color: var(--color-accent-two);
 }
