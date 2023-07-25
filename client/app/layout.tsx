@@ -2,7 +2,7 @@ import "./reset.css";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import Nav from "@/components/Nav";
+import Nav from "../components/Nav";
 
 const fontFamily = Montserrat({ subsets: ["latin"] });
 

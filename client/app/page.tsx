@@ -15,11 +15,7 @@ export default function Home() {
         </span>
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mx-auto">
-        {Array.from(Array(10).keys()).map((i) => (
-          <img className="rounded-md border-2 border-amber-500 hover:scale-105 transition-all mx-auto" src={`https://picsum.photos/500/500?random=${i}`} />
-        ))}
-      </div>
+
     </main>
   );
 }
