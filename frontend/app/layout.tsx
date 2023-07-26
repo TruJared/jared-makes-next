@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const navigation = [
-  { name: "Home", href: "/", isCurrent: true },
+  { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
   { name: "Blog", href: "/blog" },
   { name: "About", href: "/about" },
@@ -28,8 +28,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={fontFamily.className}>
         <div className="max-w-7xl mx-auto">
-        <Nav params={navigation} />
-        {children}
+          <Nav params={navigation} />
+          {children}
         </div>
       </body>
     </html>

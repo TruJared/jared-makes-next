@@ -1,13 +1,13 @@
-async function getDadJoke() {
-  const res = await fetch("https://icanhazdadjoke.com/", {
-    headers: { Accept: "application/json" },
-    next: {revalidate: 10}
-  });
+// async function getDadJoke() {
+//   const res = await fetch("https://icanhazdadjoke.com/", {
+//     headers: { Accept: "application/json" },
+//     next: {revalidate: 10}
+//   });
 
-  return res.json();
-}
+//   return res.json();
+// }
 
 export default async function BlogPosts() {
-  const { joke } = await getDadJoke();
-  return <h6>{joke}</h6>;
+  // const { joke } = await getDadJoke();
+  return <h1 className="text-center">Blog Posts</h1>;
 }
