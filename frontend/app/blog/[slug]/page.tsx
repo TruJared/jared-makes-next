@@ -1,26 +1,59 @@
 import sanity from "../../../lib/sanity";
-import { notFound } from 'next/navigation';
+import { notFound } from "next/navigation";
+
+// export async function generateStaticParams() {
+//   // const posts = await fetch('https://.../posts',{ next: {revalidate: 60 * 60} }).then((res) => res.json())
+//   const paths = await sanity.fetch(
+//     `*[_type == "post" && defined(slug.current)][].slug.current`
+//   );
+//   return paths.map((path: [string]) => ({
+//     slug: path,
+//   }));
+// }
+const sampleData = [
+  {
+    id: 1,
+    title: "Blog Post 1 is a really long title",
+    snippet:
+      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
+    category: ["Tech", "CSS"],
+  },
+  {
+    id: 2,
+    title: "Blog Post 2",
+    snippet:
+      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
+    category: ["Not Tech"],
+  },
+  {
+    id: 3,
+    title: "Blog Post 3",
+    snippet:
+      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
+    category: ["Next", "JavaScript", "Tech"],
+  },
+  {
+    id: 4,
+    title: "Blog Post 4 is a little long too",
+    snippet:
+      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
+    category: ["Next", "React", "JavaScript", "Transformers", "Git"],
+  },
+];
+
+// generate 404 if slug not found
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  // const posts = await fetch('https://.../posts',{ next: {revalidate: 60 * 60} }).then((res) => res.json())
-  const paths = await sanity.fetch(
-    `*[_type == "post" && defined(slug.current)][].slug.current`
+  return sampleData.map((post) =>
+    post.title.toLowerCase().replaceAll(" ", "-")
   );
-  return paths.map((path: [string]) => ({
-    slug: path,
-  }));
 }
 
-export default async function BlogPost(context: any) {
-  console.log(context);
+export default async function BlogPost({ params }: any) {
+  const { slug } = params;
 
-  const { slug = "" } = context.params;
-  const post = await sanity.fetch(
-    `
-    *[_type == "post" && slug.current == $slug][0]
-  `,
-    { slug }
-  );
-  if (!post || !post?.slug?.current) { notFound() }
-  return <h1>{post?.slug?.current}</h1>;
+  // fetch blog post from sanity
+
+  return <h1>Title</h1>;
 }

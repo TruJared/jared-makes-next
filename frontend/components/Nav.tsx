@@ -1,34 +1,48 @@
-'use client'
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import clsx from "clsx";
 
 export interface NavProps {
-  params: {
-    name: string;
-    href: string;
-  }[];
+  heading?: string | null;
 }
 
-export default function Nav({ params }: NavProps) {
-  const pathName = usePathname() === '/' ? '/home' : usePathname();
+const navigation = [
+  { name: "Home", href: "/" },
+  { name: "Projects", href: "/projects" },
+  { name: "Blog", href: "/blog" },
+];
+
+export default function Nav({ heading = null }: NavProps) {
+  const pathName = usePathname() === "/" ? "/home" : usePathname();
+  const headingBorder = heading ? " border-b border-accent-3" : "justify-between";
 
   return (
-    <nav className="flex row justify-between flex-wrap mx-auto p-3">
-      <Image className='pl-1' src={"/images/favicon.png"} alt="" width={75} height={75} />
-      <ul className="flex row items-center justify-center flex-wrap pr-1">
-        {params.map(({ name, href }, index) => {
-          const isCurrent = '/' + name.toLowerCase() === pathName;
-          return( <li className="px-3" key={index}>
-            <Link
-              className={isCurrent ? "text-white no-underline" : ""}
-              href={href}
-            >
-              {name}
-            </Link>
-          </li>)
-        })}
-      </ul>
-    </nav>
+    <>
+      <div
+        className={clsx(
+          "flex flex-wrap justify-end mt-2 mb-10 md:justify-between",
+          headingBorder
+        )}
+      >
+        {heading === null ? (
+          <Image src={"/images/favicon.png"} alt="" width={75} height={75} />
+        ) : (
+          <h1>{heading}</h1>
+        )}
+
+        <ul className="flex row items-center justify-center flex-wrap mt-1 ml-10 pr-1">
+          {navigation.map(({ name, href }, index) => {
+            const isCurrent = "/" + name.toLowerCase() === pathName;
+            return (
+              <li className={isCurrent ? "hidden" : "px-2"} key={index}>
+                <Link href={href}>{name}</Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </>
   );
 }
