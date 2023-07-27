@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main>
-      <h1 className="text-[13.5rem] uppercase font-light text-center p-1 my-3 md:text-[12rem]">
+      <h1 className="text-[13.5rem] uppercase text-center p-1 my-3 md:text-[12rem]">
         <span className="whitespace-nowrap">he</span>
         <span className="whitespace-nowrap">ll</span>o
       </h1>
@@ -14,7 +14,13 @@ export default function Home() {
           tomes of knowledge, and lots of moxy.
         </span>
       </h2>
-
+      <p>hello world</p>
+      <button className="bg-accent-1">accent 1</button>
+      <button className="bg-accent-2">accent 2</button>
+      <button className="bg-accent-3">accent 3</button>
+      <button className="bg-accent-4">accent 4</button>
+      <button className="bg-accent-5">accent 5</button>
+      <button className="bg-accent-6">accent 6</button>
 
     </main>
   );
