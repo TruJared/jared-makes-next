@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={fontFamily.className}>
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <Nav params={navigation} />
           {children}
         </div>

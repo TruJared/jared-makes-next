@@ -14,13 +14,14 @@ export default function Home() {
           tomes of knowledge, and lots of moxy.
         </span>
       </h2>
-      <p>hello world</p>
-      <button className="bg-accent-1">accent 1</button>
-      <button className="bg-accent-2">accent 2</button>
-      <button className="bg-accent-3">accent 3</button>
-      <button className="bg-accent-4">accent 4</button>
-      <button className="bg-accent-5">accent 5</button>
-      <button className="bg-accent-6">accent 6</button>
+      <p className="my-5">hello world</p>
+      <button className="m-2">basic button</button>
+      <button className="bg-accent-1 m-2">accent 1</button>
+      <button className="bg-accent-2 m-2">accent 2</button>
+      <button className="bg-accent-3 m-2">accent 3</button>
+      <button className="bg-accent-4 m-2">accent 4</button>
+      <button className="bg-accent-5 m-2">accent 5</button>
+      <button className="bg-accent-6 m-2">accent 6</button>
 
     </main>
   );
