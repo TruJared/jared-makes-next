@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Header from "../../components/Header";
 // async function getDadJoke() {
 //   const res = await fetch("https://icanhazdadjoke.com/", {
 //     headers: { Accept: "application/json" },
@@ -11,64 +12,72 @@ import Link from "next/link";
 const sampleData = [
   {
     id: 1,
-    title: "Blog Post 1",
-    snippet: "This is my first blog post",
-    category: "Tech",
+    title: "Blog Post 1 is a really long title",
+    snippet:
+      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
+    category: ["Tech", "CSS"],
   },
   {
     id: 2,
     title: "Blog Post 2",
-    snippet: "This is my second blog post",
-    category: "Not Tech",
+    snippet:
+      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
+    category: ["Not Tech"],
   },
   {
     id: 3,
     title: "Blog Post 3",
-    snippet: "This is my third blog post",
-    category: "Not Tech",
+    snippet:
+      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
+    category: ["Next", "JavaScript", "Tech"],
   },
   {
     id: 4,
-    title: "Blog Post 4",
-    snippet: "This is my fourth blog post",
-    category: "Not Tech",
+    title: "Blog Post 4 is a little long too",
+    snippet:
+      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
+    category: ["Next", "React", "JavaScript", "Transformers", "Git"],
   },
 ];
+
+const tags = sampleData
+  .map((post) => post.category)
+  .flat()
+  .filter((v, i, a) => a.indexOf(v) === i);
 
 export default async function BlogPosts() {
   // const { joke } = await getDadJoke();
   return (
     <>
-      <h1 className="mt-2 mb-9">Blog</h1>
-      <div className="max-w-5xl mx-auto flex flex-col justify-center items-center">
-        <div className="my-3 flex flex-row flex-wrap items-start self-start">
-          {sampleData.map((post) => (
-            <button className="bg-accent-4 text-sm font-bold py-1 px-2 mx-2">
-              {post.category}
+      <Header title={"Blog"} />
+      <div className="mx-auto flex flex-col justify-between items-start">
+        <div className="my-3 flex flex-row flex-wrap justify-start items-start">
+          {tags.map((tag) => (
+            <button className="bg-accent-4 text-sm font-bold py-1 px-2 mr-3 my-2">
+              {tag}
             </button>
           ))}
         </div>
-        <div className="flex flex-row flex-wrap justify-between items-start">
+        <div className="grid grid-cols-1 mt-5 pr-10">
           {sampleData.map((post) => (
-            <div className="my-9">
-              <h2>
-                <Link
-                  href={`/${encodeURI(
-                    post.title.toLowerCase().replaceAll(" ", "-")
-                  )}`}
-                >
-                  {post.title}
-                </Link>
-              </h2>
-              <p>
-                <Link
-                  href={`/${encodeURI(
-                    post.title.toLowerCase().replaceAll(" ", "-")
-                  )}`}
-                >
-                  {post.snippet} ... read more
-                </Link>
-              </p>
+            <div className="max-w-4xl p-3 my-2">
+              <Link
+                className="no-underline"
+                href={`/blog/${encodeURI(
+                  post.title.toLowerCase().replaceAll(" ", "-")
+                )}`}
+              >
+                <h2 className="font-semibold mb-3">{post.title}</h2>
+                <p className="text-justify bg-accent">
+                  {post.snippet} ...{" "}
+                  <span className="underline">read more</span>
+                </p>
+              </Link>
+              {post.category.map((tag) => (
+                <span className="bg-accent-4 text-secondary-300 border-0 rounded-full text-xs inline-block py-1 px-2 mr-3 my-3">
+                  {tag}
+                </span>
+              ))}
             </div>
           ))}
         </div>
