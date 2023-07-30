@@ -97,7 +97,7 @@
   .h5,
   h6,
   .h6 {
-    @apply font-light leading-none tracking-wider text-secondary-300;
+    @apply font-bold leading-none tracking-wide text-secondary-300;
   }
   h1,
   .h1 {
@@ -113,15 +113,15 @@
   }
   h4,
   .h4 {
-    @apply text-2xl leading-relaxed;
+    @apply text-2xl leading-relaxed font-light;
   }
   h5,
   .h5 {
-    @apply text-xl uppercase leading-relaxed tracking-wider;
+    @apply text-lg uppercase leading-relaxed tracking-wide font-light;
   }
   h6,
   .h6 {
-    @apply text-lg uppercase leading-relaxed tracking-wider;
+    @apply text-base uppercase leading-relaxed tracking-wide font-light;
   }
 
   a {

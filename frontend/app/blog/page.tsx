@@ -58,7 +58,7 @@ export default async function BlogPosts() {
             </button>
           ))}
         </div>
-        <div className="grid grid-cols-1 mt-5 pr-10">
+        <div className="mt-5 pr-10">
           {sampleData.map((post) => (
             <div className="max-w-4xl p-3 my-2">
               <Link
