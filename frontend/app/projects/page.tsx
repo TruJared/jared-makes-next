@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import Header from "../../components/Header";
+import Header from "../../components/Heading";
+import Nav from "../../components/Nav";
 const projects = [
   {
     name: "Astro Shop",
@@ -28,7 +29,7 @@ const projects = [
 export default function ProjectsPage() {
   return (
     <>
-      <Header title={"Projects"} />
+      <Nav heading={"Projects"} />
 
       <div className="flex flex-wrap justify-center md:justify-between">
         {projects.map((project) => (

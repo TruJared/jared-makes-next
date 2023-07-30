@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Header from "../../components/Header";
+import Header from "../../components/Heading";
 // async function getDadJoke() {
 //   const res = await fetch("https://icanhazdadjoke.com/", {
 //     headers: { Accept: "application/json" },
