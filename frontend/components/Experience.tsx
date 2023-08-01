@@ -50,7 +50,7 @@ export default function Experience() {
                         </a>
                       )}
                       {!j.link && (
-                        <h3 className="text-base font-semibold tracking-tight sm:max-w-none sm:text-lg max-w-[20ch] text-white/80">
+                        <h3 className="text-base font-semibold tracking-tight opacity-80 sm:max-w-none sm:text-lg max-w-[20ch] ">
                           {j.company}
                         </h3>
                       )}
