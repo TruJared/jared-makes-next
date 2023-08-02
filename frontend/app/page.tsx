@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <>
       <Nav heading="Hello." />
-      <div className="my-10">
+      <div className="mt-16 lg:mt-0">
         <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
           <div className="lg:pl-20">
             <div className="max-w-xs px-2.5 lg:max-w-none">
@@ -35,7 +35,7 @@ export default function Home() {
           </div>
           <div className="lg:order-first lg:row-span-2">
             {/* <h1 className="text-4xl sm:text-5xl mb-6">Hello.</h1> */}
-            <h2 className="h6">
+            <h2 className="h5">
               I'm Jared Truscott. A developer who is passionate about usability,
               efficiency, and building the future of e-commerce and the web.
             </h2>

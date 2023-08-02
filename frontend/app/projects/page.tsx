@@ -1,59 +1,40 @@
-import Link from "next/link";
-import Image from "next/image";
-import Header from "../../components/Heading";
 import Nav from "../../components/Nav";
-const projects = [
-  {
-    name: "Astro Shop",
-    description:
-      "Hyper-performant e-commerce demo site built with Astro, Tailwind, and React.",
-    link: "https://astro-shop-jm.vercel.app/",
-    stack: ["Astro", "Tailwind", "React"],
-  },
-  {
-    name: "Astro Shop",
-    description:
-      "Hyper-performant e-commerce demo site built with Astro, Tailwind, and React.",
-    link: "https://astro-shop-jm.vercel.app/",
-    stack: ["Astro", "Tailwind", "React"],
-  },
-  {
-    name: "Amazon Alexa",
-    description:
-      "I assisted on a series of projects for Voice Focused, a company that focused on disrupting the voice assistant market.",
-    link: "https://vimeo.com/309762069",
-    stack: ["Alexa", "Node", "AWS"],
-  },
-];
+import sanity from "../../lib/sanity";
+import ProjectsGrid from "../../components/ProjectsGrid";
 
-export default function ProjectsPage() {
+// todo META DATA
+export default async function ProjectsPage() {
+  const projects = await sanity.fetch(`
+  *[_type == 'project'] | order(category) { category, title, description,
+   ...url{"url":current}, mainImage{...asset->{url}}, tags[]->{title}}`);
+
+  const ols = await projects.filter((project) => project.category === "ols");
+  const other = await projects.filter(
+    (project) => project.category === "other"
+  );
+  const upcoming = await projects.filter(
+    (project) => project.category === "upcoming"
+  );
+
+  // todo add upcoming projects
   return (
     <>
       <Nav heading={"Projects"} />
-
-      <div className="flex flex-wrap justify-center md:justify-between">
-        {projects.map((project) => (
-          <div className="max-w-[400px] mt-2 mb-6 p-3 lg:p-0 lg:max-w-[300px]">
-            <Link className="no-underline" href={project.link}>
-              <h3 className="font-semibold">{project.name}</h3>
-              <Image
-
-                src={`/images/${project.name
-                  .replace(/ /g, "")
-                  .toLowerCase()}.webp`}
-                alt=""
-                width={400}
-                height={400}
-              />
-              <div className="max-w-[400px] h-[150px] border-t border-accent-3 mt-5 p-1 lg:max-w-[300px] ">
-                <p className="pb-2">{project.description}</p>
-                <p>How it's made: {project.stack}</p>
-              {project.link}
-              </div>
-            </Link>
-          </div>
-        ))}
-      </div>
+      {ols && (
+        <div className="my-24 md:my-16">
+          <h2 className="mb-4">Online Stores</h2>
+          <p className="mb-8 ml-4">This is a suite of stores that a small team, and I migrated from Magento to Big Commerce. We were able to build these sites and migrate them in less than one year.</p>
+          <ProjectsGrid projects={ols} />
+        </div>
+      )}
+      {other && (
+        <div className="my-24 md:my-16">
+          <h2 className="mb-4">Other Projects</h2>
+          <p className="mb-8 ml-4">While the bulk of my work involved building, migrating, maintaining the sites for online stores, I have still found time for some other fun projects..</p>
+          <ProjectsGrid projects={other} />
+        </div>
+      ) }
+      {upcoming && <ProjectsGrid projects={upcoming} />}
     </>
   );
 }
