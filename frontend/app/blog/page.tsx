@@ -1,92 +1,68 @@
+import { Metadata } from "next";
 import Link from "next/link";
-import Header from "../../components/Heading";
+import sanity from "../../lib/sanity";
 import Tags from "../../components/Tags";
-// async function getDadJoke() {
-//   const res = await fetch("https://icanhazdadjoke.com/", {
-//     headers: { Accept: "application/json" },
-//     next: {revalidate: 10}
-//   });
+import Nav from "../../components/Nav";
+import {  Key } from "react";
 
-//   return res.json();
-// }
-
-const sampleData = [
-  {
-    id: 1,
-    title: "Blog Post 1 is a really long title",
-    snippet:
-      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
-    category: [{ title: "Tech" }, { title: "CSS" }],
+export const metadata: Metadata = {
+  title: "Blog - Jared Makes",
+  description:
+    "I'm Jared Truscott. A developer who is passionate about usability, efficiency, and building the future of e-commerce and the web.",
+  openGraph: {
+    title: "Blog - Jared Makes",
+    description:
+      "I'm Jared Truscott. A developer who is passionate about usability, efficiency, and building the future of e-commerce and the web.",
+    images: ["/images/og_image.png"],
   },
-  {
-    id: 2,
-    title: "Blog Post 2",
-    snippet:
-      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
-    category: [{ title: "Not Tech" }],
-  },
-  {
-    id: 3,
-    title: "Blog Post 3",
-    snippet:
-      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
-    category: [{ title: "Next" }, { title: "JavaScript" }, { title: "Tech" }],
-  },
-  {
-    id: 4,
-    title: "Blog Post 4 is a little long too",
-    snippet:
-      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
-    category: [
-      { title: "Next" },
-      { title: "React" },
-      { title: "JavaScript" },
-      { title: "Transformers" },
-      { title: "Git" },
-    ],
-  },
-];
-
-const tags = sampleData
-  .map((post) => post.category)
-  .flat()
-  .filter((v, i, a) => a.indexOf(v) === i);
-
-//todo reding time
+};
 
 export default async function BlogPosts() {
-  // const { joke } = await getDadJoke();
+
+  const posts = await sanity.fetch(`*[_type == "post"] | order(publishedAt) {
+  publishedAt, title, "snippet":excerpt,
+  slug{"url":current},
+  mainImage{...asset->{"url":path}},
+  tags[]->{title}
+}`);
+
+  // create a list of all tags
+  const tags = await posts
+    .map((post: { tags: any; }) => post.tags).flat().map((o: { title: any; }) =>o.title ).filter((v: any, i: any, a: string | any[]) => a.indexOf(v) === i);
+
+
+
   return (
     <>
-      <Header title={"Blog"} />
-      <div className="mx-auto flex flex-col justify-between items-start">
-        <div className="my-3 flex flex-row flex-wrap justify-start items-start">
-          {tags.map((tag) => (
-            <button className="bg-accent-4 text-sm font-bold py-1 px-2 mr-3 my-2 hover:bg-accent-5 hover:text-white hover:border-accent-3text-white ">
-              {tag.title}
-            </button>
-          ))}
-        </div>
-        <div className="mt-5 pr-10">
-          {sampleData.map((post) => (
-            <div className="max-w-4xl p-3 my-2">
-              <Link
-                className="no-underline"
-                href={`/blog/${encodeURI(
-                  post.title.toLowerCase().replaceAll(" ", "-")
-                )}`}
-              >
-                <h2 className="font-semibold mb-3">{post.title}</h2>
-                <p className="text-white text-justify bg-accent">
-                  {post.snippet} ...{" "}
-                  <span className="underline">read more</span>
-                </p>
-                <div className="m-2 hover:cursor-not-allowed">
-                  <Tags tags={post.category} />
-                </div>
-              </Link>
-            </div>
-          ))}
+      <Nav heading={"Blog"} />
+      <div className="my-24 md:my-16">
+        <div className="mx-auto flex flex-col justify-between items-start">
+          <div className="my-3 flex flex-row flex-wrap justify-start items-start">
+            {tags.map((tag:string[], i:Key) => (
+              <button className="bg-accent-4 text-sm font-bold py-1 px-2 mr-3 my-2 hover:bg-accent-5 hover:text-white hover:border-accent-3text-white" key={i}>
+                {tag}
+              </button>
+            ))}
+          </div>
+          <div className="mt-5 pr-10">
+            {posts.map((post:any, i: Key) => (
+              <div className="max-w-4xl p-3 my-2" key={i}>
+                <Link
+                  className="no-underline"
+                  href={`/blog/${post.slug.url}`}
+                >
+                  <h2 className="font-semibold text-2xl mb-1">{post.title}</h2>
+                  <p className="text-white tracking-wide leading-6 border-t-2 border-accent-3 pt-2 px-3">
+                    {post.snippet} ...{" "}
+                    <span className="underline">read more</span>
+                  </p>
+                  <div className="mx-3 my-1 hover:cursor-not-allowed">
+                    <Tags tags={post.tags} />
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>

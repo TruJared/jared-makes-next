@@ -1,8 +1,18 @@
+import { Metadata } from "next";
 import Nav from "../../components/Nav";
 import sanity from "../../lib/sanity";
 import ProjectsGrid from "../../components/ProjectsGrid";
 
-// todo META DATA
+export const metadata: Metadata = {
+  title: "Projects - Jared Makes",
+  description: "I'm Jared Truscott. A developer who is passionate about usability, efficiency, and building the future of e-commerce and the web.",
+  openGraph: {
+    title: "Projects - Jared Makes",
+    description: "I'm Jared Truscott. A developer who is passionate about usability, efficiency, and building the future of e-commerce and the web.",
+    images: ['/images/og_image.png']
+  },
+};
+
 export default async function ProjectsPage() {
   const projects = await sanity.fetch(`
   *[_type == 'project'] | order(category) { category, title, description,
@@ -16,7 +26,7 @@ export default async function ProjectsPage() {
     (project) => project.category === "upcoming"
   );
 
-  // todo add upcoming projects
+
   return (
     <>
       <Nav heading={"Projects"} />

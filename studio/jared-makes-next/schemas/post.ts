@@ -1,4 +1,5 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
+
 
 export default defineType({
   name: 'post',
@@ -31,7 +32,7 @@ export default defineType({
       name: 'tags',
       title: 'Tags',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'tags'}}],
+      of: [{ type: 'reference', to: { type: 'tags' } }],
     }),
     defineField({
       name: 'publishedAt',
@@ -39,21 +40,32 @@ export default defineType({
       type: 'datetime',
     }),
     defineField({
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'string',
+      validation: (Rule) => Rule.max(200).warning('Should be under 200 characters'),
+
+    }),
+    defineField({
       name: 'body',
       title: 'Body',
-      type: 'blockContent',
+      description: 'Github flavored markdown',
+      type: 'markdown',
     }),
   ],
 
   preview: {
     select: {
       title: 'title',
-      author: 'author.name',
       media: 'mainImage',
+      date: 'publishedAt',
     },
-    prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+    prepare({ title, media, date }) {
+      return {
+        title,
+        media,
+        subtitle: date?.split('T')[0],
+      }
     },
-  },
+  }
 })

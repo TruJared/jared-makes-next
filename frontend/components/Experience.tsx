@@ -33,9 +33,9 @@ export default function Experience() {
         </h2>
         <div className="md:col-span-3">
           <ul role="list" className="space-y-10">
-            {jobs.map((j) => (
-              <li className="flex flex-col items-start">
-                <div className="flex flex-row justify-between items-baseline pl-2 w-full border-l-2 border-accent-6">
+            {jobs.map((j, i) => (
+              <li className="flex flex-col items-start" key={i}>
+                <div className="flex flex-row justify-between items-baseline pl-2 w-full border-l-2 border-accent-6" >
                   <div className="flex flex-col">
                     <div className="flex flex-row gap-2 items-center">
                       {j.link && (
