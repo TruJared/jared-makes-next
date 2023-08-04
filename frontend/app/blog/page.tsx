@@ -8,11 +8,11 @@ import {  Key } from "react";
 export const metadata: Metadata = {
   title: "Blog - Jared Makes",
   description:
-    "I'm Jared Truscott. A developer who is passionate about usability, efficiency, and building the future of e-commerce and the web.",
+    "I'm Jared Truscott. A developer who is passionate about UX, efficiency, and building the future of e-commerce and the web.",
   openGraph: {
     title: "Blog - Jared Makes",
     description:
-      "I'm Jared Truscott. A developer who is passionate about usability, efficiency, and building the future of e-commerce and the web.",
+      "I'm Jared Truscott. A developer who is passionate about UX, efficiency, and building the future of e-commerce and the web.",
     images: ["/images/og_image.png"],
   },
 };

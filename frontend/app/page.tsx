@@ -8,10 +8,10 @@ import Nav from "../components/Nav";
 
 export const metadata: Metadata = {
   title: "Hello.",
-  description: "I&apos;m Jared Truscott. A developer who is passionate about usability, efficiency, and building the future of e-commerce and the web.",
+  description: "I&apos;m Jared Truscott. A developer who is passionate about UX, efficiency, and building the future of e-commerce and the web.",
   openGraph: {
     title: "Hello.",
-    description: "I&apos;m Jared Truscott. A developer who is passionate about usability, efficiency, and building the future of e-commerce and the web.",
+    description: "I&apos;m Jared Truscott. A developer who is passionate about UX, efficiency, and building the future of e-commerce and the web.",
     images: ['/images/og_image.png']
   },
 };
@@ -36,7 +36,7 @@ export default function Home() {
           <div className="lg:order-first lg:row-span-2">
             {/* <h1 className="text-4xl sm:text-5xl mb-6">Hello.</h1> */}
             <h2 className="h5">
-              I&apos;m Jared Truscott. A developer who is passionate about usability,
+              I&apos;m Jared Truscott. A developer who is passionate about UX,
               efficiency, and building the future of e-commerce and the web.
             </h2>
             <div className="mt-6 space-y-7 text-base leading-relaxed">
