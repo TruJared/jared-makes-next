@@ -37,8 +37,7 @@ module.exports = {
       white: "hsl(var(--color-white) / 1)",
       black: colors.black,
       gray: colors.slate,
-
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };

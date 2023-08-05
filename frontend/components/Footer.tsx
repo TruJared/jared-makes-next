@@ -23,7 +23,7 @@ export default function Footer() {
   return (
     <ul
       role="list"
-      className="text-sm flex flex-row flex-wrap items-center justify-start gap-4 mb-5 max-w-5xl mx-auto"
+      className="text-sm flex flex-row flex-wrap items-center justify-start gap-4 mt-12 mb-5 max-w-5xl mx-auto"
     >
       <SocialLink href="https://github.com/trujared" icon={GitHubIcon}>
         Follow on GitHub
