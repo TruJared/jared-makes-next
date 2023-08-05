@@ -1,23 +1,10 @@
 "use client";
-import { Metadata } from "next";
 import Link from "next/link";
 import sanity from "../../lib/sanity";
 import Tags from "../../components/Tags";
 import Nav from "../../components/Nav";
 import { Key, useEffect, useState } from "react";
 import clsx from "clsx";
-
-export const metadata: Metadata = {
-  title: "Blog - Jared Makes",
-  description:
-    "I'm Jared Truscott. A developer who is passionate about UX, efficiency, and building the future of e-commerce and the web.",
-  openGraph: {
-    title: "Blog - Jared Makes",
-    description:
-      "I'm Jared Truscott. A developer who is passionate about UX, efficiency, and building the future of e-commerce and the web.",
-    images: ["/images/og_image.png"],
-  },
-};
 
 export default function BlogPosts() {
   const [allPosts, setAllPosts] = useState([]);
