@@ -21,22 +21,24 @@ const currentYear = new Date().getFullYear();
 
 export default function Footer() {
   return (
-    <ul
-      role="list"
-      className="text-sm flex flex-row flex-wrap items-center justify-start gap-4 mt-12 mb-5 max-w-5xl mx-auto"
-    >
-      <SocialLink href="https://github.com/trujared" icon={GitHubIcon}>
-        Follow on GitHub
-      </SocialLink>
-      {/* <SocialLink href="#" icon={ThreadsIcon}>
+    <div>
+      <ul
+        role="list"
+        className="text-sm text-secondary-400 flex flex-row flex-wrap items-center justify-start gap-4 m-5 max-w-5xl mx-auto px-5"
+      >
+        <SocialLink href="https://github.com/trujared" icon={GitHubIcon}>
+          Follow on GitHub
+        </SocialLink>
+        {/* <SocialLink href="#" icon={ThreadsIcon}>
         Trujared
       </SocialLink> */}
-      <SocialLink href="mailto:jared@jaredmakes.com" icon={MailIcon}>
-        Jared@jaredmakes.com
-      </SocialLink>
-      <p className="md:ml-auto">
-        © {currentYear} Jared Truscott. All rights reserved.
-      </p>
-    </ul>
+        <SocialLink href="mailto:jared@jaredmakes.com" icon={MailIcon}>
+          Jared@jaredmakes.com
+        </SocialLink>
+        <p className="md:ml-auto">
+          © {currentYear} Jared Truscott. All rights reserved.
+        </p>
+      </ul>
+    </div>
   );
 }

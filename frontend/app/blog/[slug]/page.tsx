@@ -5,6 +5,7 @@ import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import sanity from "../../../lib/sanity";
 
+
 // generate routes at build time
 export async function generateStaticParams() {
   const slugs = await sanity.fetch(
@@ -65,11 +66,12 @@ export default async function BlogPost({
   const body = DOMPurify.sanitize(marked.parse(post.body));
 
   return (
-    <article
-      className={`
+    <>
+      <article
+        className={`
       mt-2
-      mb-20
       mx-auto
+      min-h-screen
       prose
       text-white/90
       prose-headings:text-secondary-200
@@ -98,25 +100,28 @@ export default async function BlogPost({
       prose-p:text-white/80
       prose-p:text-lg
       `}
-    >
-      <Link className="float-right ml-3" href="/blog">
-        All Posts
-      </Link>
-      <h1>{post.title}</h1>
+      >
+        <Link className="float-right ml-3" href="/blog">
+          All Posts
+        </Link>
+        <h1>{post.title}</h1>
 
-      <Image
-        src={"https://cdn.sanity.io/" + post.mainImage.url}
-        alt={post.title}
-        width={400}
-        height={400}
-        blurDataURL={
-          "https://cdn.sanity.io/" + post.mainImage.url + "?w=50&h=50&blur=1000"
-        }
-      />
-      <div dangerouslySetInnerHTML={{ __html: body }}></div>
-      <Link className="float-right" href="/blog">
-        All Posts
-      </Link>
-    </article>
+        <Image
+          src={"https://cdn.sanity.io/" + post.mainImage.url}
+          alt={post.title}
+          width={400}
+          height={400}
+          blurDataURL={
+            "https://cdn.sanity.io/" +
+            post.mainImage.url +
+            "?w=50&h=50&blur=1000"
+          }
+        />
+        <div dangerouslySetInnerHTML={{ __html: body }}></div>
+        <Link className="float-right" href="/blog">
+          All Posts
+        </Link>
+      </article>
+    </>
   );
 }
