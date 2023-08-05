@@ -116,6 +116,7 @@ export default async function BlogPost({
             post.mainImage.url +
             "?w=50&h=50&blur=1000"
           }
+          priority
         />
         <div dangerouslySetInnerHTML={{ __html: body }}></div>
         <Link className="float-right" href="/blog">
