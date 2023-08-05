@@ -54,7 +54,7 @@ export default function BlogPosts() {
       post.tags.some((tag: any) => filters.includes(tag.title))
     );
     setPosts(filteredPosts);
-  }, [filters]);
+  }, [filters, allPosts, posts]);
 
   const handleClick = (e: any) => {
     const filter = e.target.innerText;
@@ -67,7 +67,7 @@ export default function BlogPosts() {
 
   return (
     <>
-      <Nav heading={"Blog"} />
+      <Nav heading={"Blog"} path='/blog'/>
       <div className="mt-24 md:mt-16 min-h-screen -mb-20">
         <div className="mx-auto flex flex-col justify-between items-start">
           <p className="block underline-offset-2 -mb-2">

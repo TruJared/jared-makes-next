@@ -29,7 +29,7 @@ export default async function ProjectsPage() {
 
   return (
     <>
-      <Nav heading={"Projects"} />
+      <Nav heading={"Projects"} path='/projects'/>
       {ols && (
         <div className="my-24 md:my-16">
           <h2 className="mb-4">Online Stores</h2>

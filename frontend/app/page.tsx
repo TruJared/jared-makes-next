@@ -19,9 +19,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+
   return (
     <>
-      <Nav heading="Hello." />
+      <Nav heading="Hello." path='/' />
       <div className="mt-16 lg:mt-0">
         <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
           <div className="lg:pl-20">
