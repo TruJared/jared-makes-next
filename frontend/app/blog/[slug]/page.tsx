@@ -99,7 +99,7 @@ export default async function BlogPost({
       prose-p:text-lg
       `}
     >
-      <Link className="float-right" href="/blog">
+      <Link className="float-right ml-3" href="/blog">
         All Posts
       </Link>
       <h1>{post.title}</h1>

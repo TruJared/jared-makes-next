@@ -130,7 +130,6 @@
 
   button,
   .button {
-    @apply bg-primary-400 text-secondary-200 border-2 border-secondary-200 rounded-md py-3 px-5 transition-all duration-200 ease-in-out
-    hover:cursor-pointer hover:bg-primary-700 hover:text-white hover:border-accent-1;
+    @apply bg-primary-400 text-secondary-200 border-2 border-secondary-200 rounded-md py-3 px-5 transition-all duration-200 ease-in-out hover:cursor-pointer;
   }
 }
