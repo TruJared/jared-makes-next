@@ -15,7 +15,7 @@ export default function Error({ error, reset }: ErrorProps) {
 
   return (
     <div>
-      <div className="h-screen text-center -mb-20 overflow-hidden">
+      <div className="h-screen text-center overflow-hidden">
         <h1 className="mt-32 text-5xl uppercase text-center md:mt-56 ">
           🔥Everything Is Fine🔥
         </h1>

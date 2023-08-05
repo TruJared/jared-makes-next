@@ -55,7 +55,7 @@ export default function BlogPosts() {
   return (
     <>
       <Nav heading={"Blog"} path='/blog'/>
-      <div className="mt-24 md:mt-16 min-h-screen -mb-20">
+      <div className="mt-24 md:mt-16 min-h-screen">
         <div className="mx-auto flex flex-col justify-between items-start">
           <p className="block underline-offset-2 -mb-2">
             Applied Filters: {filters.length == 0 ? "None" : filters.join(", ")}

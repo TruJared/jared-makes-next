@@ -22,14 +22,14 @@ export default function ProjectsGrid({ projects }: ProjectsProps) {
         <div className="w-[400px] md:w-[250px] lg:w-[200px] p-3 lg:p-0 mx-auto" key={i}>
           <Link className="text-white no-underline" href={project.url}>
             <Image
-              className="border-2 border-accent-3 rounded-xl w-[400px] md:w-[250px] lg:w-[200px]"
-              src={project.mainImage.url + "?w=400&h=400&fit=crop&auto=format"}
+              className="border-2 border-accent-3 rounded-xl w-[300px] md:w-[250px] lg:w-[200px]"
+              src={project.mainImage.url + "?w=300&h=300&fit=crop&auto=format"}
               alt=""
-              width={400}
-              height={400}
+              width={300}
+              height={300}
               style={{ objectFit: "cover" }}
             />
-            <div className="w-[400px] mt-2 p-1 md:w-[250px] lg:w-[200px]">
+            <div className="w-[300px] mt-2 p-1 md:w-[250px] lg:w-[200px]">
               <h3 className="text-2xl font-semibold underline  sm:text-xl lg:text-base">
                 {project.title}
               </h3>

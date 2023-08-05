@@ -44,7 +44,7 @@ export async function generateMetadata(
       title: post.title,
       description: post.snippet,
       images: [
-        `https://cdn.sanity.io/${post.mainImage.url}?w=1200&h=630&fit=max`,
+        `https://cdn.sanity.io/${post.mainImage.url}?w=1200&h=630&fit=max&auto=format`,
         ...previousImages,
       ],
     },
@@ -107,14 +107,14 @@ export default async function BlogPost({
         <h1>{post.title}</h1>
 
         <Image
-          src={"https://cdn.sanity.io/" + post.mainImage.url}
+          src={"https://cdn.sanity.io/" + post.mainImage.url + '?w=400&h=400&fit=max&auto=format'}
           alt={post.title}
           width={400}
           height={400}
           blurDataURL={
             "https://cdn.sanity.io/" +
             post.mainImage.url +
-            "?w=50&h=50&blur=1000"
+            "?w=50&h=50&blur=1000&auto=format"
           }
           priority
         />
