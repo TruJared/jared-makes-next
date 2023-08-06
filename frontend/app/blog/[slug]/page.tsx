@@ -7,20 +7,6 @@ import DOMPurify from "isomorphic-dompurify";
 import sanity from "../../../lib/sanity";
 
 
-// generate dynamic routes
-// export async function generateStaticParams() {
-//   const slugs = await sanity.fetch(
-//     `*[_type == 'post'] {...slug{"url":current}}`
-//   );
-
-//   return slugs.map((slug: { url: string }) => ({
-//     slug: slug.url,
-//   }));
-// }
-
-// generate 404 if slug not found
-// export const dynamicParams = false;
-
 export async function generateMetadata(
   {
     params,
@@ -66,8 +52,8 @@ export default async function BlogPost({
   }`;
 
   const post = await sanity.fetch(query).then((res: any) => res[0]);
-  console.log(post)
-  // if (!post || !post.url) return notFound();
+
+  if (!post || !post.title) return notFound();
 
   const body = DOMPurify.sanitize(marked.parse(post?.body));
 
@@ -117,11 +103,8 @@ export default async function BlogPost({
           alt={post?.title}
           width={300}
           height={300}
-          blurDataURL={
-            "https://cdn.sanity.io/" +
-            post?.mainImage.url +
-            "?w=50&h=50&blur=1000&auto=format"
-          }
+          blurDataURL={'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMU1uC4BgABtAEbO2PbOQAAAABJRU5ErkJggg=='}
+          placeholder="blur"
           priority
         />
         <div dangerouslySetInnerHTML={{ __html: body }}></div>

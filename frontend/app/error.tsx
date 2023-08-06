@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useEffect } from "react";
 
 interface ErrorProps {
@@ -16,9 +16,13 @@ export default function Error({ error, reset }: ErrorProps) {
   return (
     <div>
       <div className="h-screen text-center overflow-hidden">
-        <h1 className="mt-32 text-5xl uppercase text-center md:mt-56 ">
-          🔥Everything Is Fine🔥
-        </h1>
+        <Image
+          className="mx-auto my-5 rounded-xl"
+          src="/images/this_is_fine.jpg"
+          alt="This is fine meme"
+          width={500}
+          height={500}
+        />
         <h4 className="my-14">
           Looks like there&apos;s an error. No worries just use the magic button
           below to refresh the page.

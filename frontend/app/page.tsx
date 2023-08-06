@@ -19,10 +19,9 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-
   return (
     <>
-      <Nav heading="Hello." path='/' />
+      <Nav heading="Hello." path="/" />
       <div className="mt-16 lg:mt-0">
         <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
           <div className="lg:pl-20">
@@ -32,6 +31,10 @@ export default function Home() {
                 alt=""
                 sizes="(min-width: 1024px) 32rem, 20rem"
                 className="aspect-square rounded-xl object-cover"
+                placeholder="blur"
+                blurDataURL={
+                  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMU1uC4BgABtAEbO2PbOQAAAABJRU5ErkJggg=="
+                }
                 priority
               />
             </div>
