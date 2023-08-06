@@ -58,7 +58,7 @@ export default function BlogPosts() {
       <Nav heading={"Blog"} path='/blog'/>
       <div className="mt-24 md:mt-16 min-h-screen">
         <div className="mx-auto flex flex-col justify-between items-start">
-          {/* <p className="block underline-offset-2 -mb-2">
+          <p className="block underline-offset-2 -mb-2">
             Applied Filters: {filters.length == 0 ? "None" : filters.join(", ")}
           </p>
           <div className="my-3 flex flex-row flex-wrap justify-start items-start">
@@ -76,7 +76,7 @@ export default function BlogPosts() {
                 {tag}
               </button>
             ))}
-          </div> */}
+          </div>
           <div className="mt-5 pr-10">
             {posts.map((post: any, i: Key) => (
               <div className="max-w-4xl p-3 my-2" key={i}>
