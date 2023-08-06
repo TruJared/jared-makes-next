@@ -41,7 +41,8 @@ export default function BlogPosts() {
       post.tags.some((tag: any) => filters.includes(tag.title))
     );
     setPosts(filteredPosts);
-  }, [filters, allPosts, posts]);
+  }, [filters]);
+
 
   const handleClick = (e: any) => {
     const filter = e.target.innerText;

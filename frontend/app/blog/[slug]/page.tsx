@@ -6,7 +6,7 @@ import DOMPurify from "isomorphic-dompurify";
 import sanity from "../../../lib/sanity";
 
 
-// generate routes at build time
+// generate dynamic routes
 export async function generateStaticParams() {
   const slugs = await sanity.fetch(
     `*[_type == 'post'] {...slug{"url":current}}`
