@@ -107,10 +107,10 @@ export default async function BlogPost({
         <h1>{post.title}</h1>
 
         <Image
-          src={"https://cdn.sanity.io/" + post.mainImage.url + '?w=400&h=400&fit=max&auto=format'}
+          src={"https://cdn.sanity.io/" + post.mainImage.url + '?w=300&h=300&fit=crop&auto=format'}
           alt={post.title}
-          width={400}
-          height={400}
+          width={300}
+          height={300}
           blurDataURL={
             "https://cdn.sanity.io/" +
             post.mainImage.url +
