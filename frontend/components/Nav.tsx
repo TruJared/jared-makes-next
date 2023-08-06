@@ -1,11 +1,11 @@
-"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
 export interface NavProps {
   heading?: string | null;
+  path?: string;
 }
 
 const navigation = [
@@ -14,8 +14,8 @@ const navigation = [
   { name: "Blog", href: "/blog" },
 ];
 
-export default function Nav({ heading = null }: NavProps) {
-  const pathName = usePathname() === "/" ? "/home" : usePathname();
+export default function Nav({ heading = null, path }: NavProps) {
+  const pathName = path === "/" ? "/home" : path;
   const headingBorder = heading ? " border-b border-accent-3" : "justify-between";
 
   return (

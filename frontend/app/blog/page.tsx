@@ -1,85 +1,100 @@
+"use client";
 import Link from "next/link";
-import Header from "../../components/Heading";
-// async function getDadJoke() {
-//   const res = await fetch("https://icanhazdadjoke.com/", {
-//     headers: { Accept: "application/json" },
-//     next: {revalidate: 10}
-//   });
+import sanity from "../../lib/sanity";
+import Tags from "../../components/Tags";
+import Nav from "../../components/Nav";
+import { Key, useEffect, useState } from "react";
+import clsx from "clsx";
 
-//   return res.json();
-// }
+export default function BlogPosts() {
+  const [allPosts, setAllPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [filters, setFilters] = useState([]);
+  const [tags, setTags] = useState([]);
 
-const sampleData = [
-  {
-    id: 1,
-    title: "Blog Post 1 is a really long title",
-    snippet:
-      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
-    category: ["Tech", "CSS"],
-  },
-  {
-    id: 2,
-    title: "Blog Post 2",
-    snippet:
-      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
-    category: ["Not Tech"],
-  },
-  {
-    id: 3,
-    title: "Blog Post 3",
-    snippet:
-      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
-    category: ["Next", "JavaScript", "Tech"],
-  },
-  {
-    id: 4,
-    title: "Blog Post 4 is a little long too",
-    snippet:
-      "This is my first blog post. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos! Dummy text here. And some more dummy text please.",
-    category: ["Next", "React", "JavaScript", "Transformers", "Git"],
-  },
-];
+  useEffect(() => {
+    if (posts.length < 1 || filters.length < 1) {
+      sanity
+        .fetch(
+          `*[_type == "post"] | order(publishedAt desc) {
+  publishedAt, title, "snippet":excerpt,
+  slug{"url":current},
+  mainImage{...asset->{"url":path}},
+  tags[]->{title}
+}`
+        )
+        .then((data: any) => {
+          const uniqueTags = data
+            .map((post: { tags: any }) => post.tags)
+            .flat()
+            .map((o: { title: any }) => o.title)
+            .filter((v: any, i: any, a: string | any[]) => a.indexOf(v) === i);
+          setTags(uniqueTags);
+          setAllPosts(data);
+          setPosts(data);
+        })
+        .catch((err) => console.error(err));
+      return;
+    }
 
-const tags = sampleData
-  .map((post) => post.category)
-  .flat()
-  .filter((v, i, a) => a.indexOf(v) === i);
+    const filteredPosts = allPosts.filter((post: any) =>
+      post.tags.some((tag: any) => filters.includes(tag.title))
+    );
+    setPosts(filteredPosts);
+  }, [filters, allPosts, posts]);
 
-export default async function BlogPosts() {
-  // const { joke } = await getDadJoke();
+  const handleClick = (e: any) => {
+    const filter = e.target.innerText;
+    if (filters.includes(filter)) {
+      setFilters(filters.filter((f: string) => f !== filter));
+    } else {
+      setFilters([...filters, filter]);
+    }
+  };
+
   return (
     <>
-      <Header title={"Blog"} />
-      <div className="mx-auto flex flex-col justify-between items-start">
-        <div className="my-3 flex flex-row flex-wrap justify-start items-start">
-          {tags.map((tag) => (
-            <button className="bg-accent-4 text-sm font-bold py-1 px-2 mr-3 my-2">
-              {tag}
-            </button>
-          ))}
-        </div>
-        <div className="mt-5 pr-10">
-          {sampleData.map((post) => (
-            <div className="max-w-4xl p-3 my-2">
-              <Link
-                className="no-underline"
-                href={`/blog/${encodeURI(
-                  post.title.toLowerCase().replaceAll(" ", "-")
-                )}`}
+      <Nav heading={"Blog"} path='/blog'/>
+      <div className="mt-24 md:mt-16 min-h-screen">
+        <div className="mx-auto flex flex-col justify-between items-start">
+          {/* <p className="block underline-offset-2 -mb-2">
+            Applied Filters: {filters.length == 0 ? "None" : filters.join(", ")}
+          </p>
+          <div className="my-3 flex flex-row flex-wrap justify-start items-start">
+            {tags.map((tag: string[], i: Key) => (
+              <button
+                className={clsx(
+                  filters.includes(tag)
+                    ? "bg-accent-5 border-white hover:text-white"
+                    : "bg-accent-4 border-primary-600 hover:text-white",
+                  "text-sm font-bold py-1 px-2 mr-3 my-2"
+                )}
+                onClick={handleClick}
+                key={i}
               >
-                <h2 className="font-semibold mb-3">{post.title}</h2>
-                <p className="text-justify bg-accent">
-                  {post.snippet} ...{" "}
-                  <span className="underline">read more</span>
-                </p>
-              </Link>
-              {post.category.map((tag) => (
-                <span className="bg-accent-4 text-secondary-300 border-0 rounded-full text-xs inline-block py-1 px-2 mr-3 my-3">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          ))}
+                {tag}
+              </button>
+            ))}
+          </div> */}
+          <div className="mt-5 pr-10">
+            {posts.map((post: any, i: Key) => (
+              <div className="max-w-4xl p-3 my-2" key={i}>
+                <Link className="no-underline" href={`/blog/${post.slug.url}`}>
+                  <h2 className="font-semibold text-2xl mb-1">{post.title}</h2>
+                  <p className="text-sm text-secondary-300 mb-1 ml-2">
+                    {new Date(post.publishedAt).toLocaleDateString()}
+                  </p>
+                  <p className="text-white tracking-wide leading-6 border-t-2 border-accent-3 pt-2 px-3">
+                    {post.snippet} ...{" "}
+                    <span className="underline">read more</span>
+                  </p>
+                  <div className="mx-3 my-1 hover:cursor-not-allowed">
+                    <Tags tags={post.tags} />
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
