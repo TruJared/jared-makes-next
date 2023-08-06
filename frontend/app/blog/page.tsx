@@ -54,7 +54,6 @@ export default function BlogPosts() {
             .map((o: { title: any }) => o.title)
             .filter((v: any, i: any, a: string | any[]) => a.indexOf(v) === i);
           setTags(uniqueTags);
-          setAllPosts(data);
           setPosts(data);
         })
         .catch((err) => console.error(err));
