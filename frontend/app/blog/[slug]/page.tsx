@@ -1,24 +1,25 @@
 import Image from "next/image";
 import { Metadata, ResolvingMetadata } from "next";
 import Link from "next/link";
+import {notFound} from 'next/navigation'
 import { marked } from "marked";
 import DOMPurify from "isomorphic-dompurify";
 import sanity from "../../../lib/sanity";
 
 
 // generate dynamic routes
-export async function generateStaticParams() {
-  const slugs = await sanity.fetch(
-    `*[_type == 'post'] {...slug{"url":current}}`
-  );
+// export async function generateStaticParams() {
+//   const slugs = await sanity.fetch(
+//     `*[_type == 'post'] {...slug{"url":current}}`
+//   );
 
-  return slugs.map((slug: { url: string }) => ({
-    slug: slug.url,
-  }));
-}
+//   return slugs.map((slug: { url: string }) => ({
+//     slug: slug.url,
+//   }));
+// }
 
 // generate 404 if slug not found
-export const dynamicParams = false;
+// export const dynamicParams = false;
 
 export async function generateMetadata(
   {
@@ -37,14 +38,16 @@ export async function generateMetadata(
   const post = await sanity.fetch(query).then((res: any) => res[0]);
   const previousImages = (await parent).openGraph?.images || [];
 
+  if (!post?.url) return notFound();
+
   return {
-    title: post.title,
-    description: post.snippet,
+    title: post?.title,
+    description: post?.snippet,
     openGraph: {
-      title: post.title,
-      description: post.snippet,
+      title: post?.title,
+      description: post?.snippet,
       images: [
-        `https://cdn.sanity.io/${post.mainImage.url}?w=1200&h=630&fit=max&auto=format`,
+        `https://cdn.sanity.io/${post?.mainImage.url}?w=1200&h=630&fit=max&auto=format`,
         ...previousImages,
       ],
     },
@@ -63,7 +66,7 @@ export default async function BlogPost({
   }`;
 
   const post = await sanity.fetch(query).then((res: any) => res[0]);
-  const body = DOMPurify.sanitize(marked.parse(post.body));
+  const body = DOMPurify.sanitize(marked.parse(post?.body));
 
   return (
     <>
@@ -104,16 +107,16 @@ export default async function BlogPost({
         <Link className="float-right ml-3" href="/blog">
           All Posts
         </Link>
-        <h1>{post.title}</h1>
+        <h1>{post?.title}</h1>
 
         <Image
-          src={"https://cdn.sanity.io/" + post.mainImage.url + '?w=300&h=300&fit=crop&auto=format'}
-          alt={post.title}
+          src={"https://cdn.sanity.io/" + post?.mainImage.url + '?w=300&h=300&fit=crop&auto=format'}
+          alt={post?.title}
           width={300}
           height={300}
           blurDataURL={
             "https://cdn.sanity.io/" +
-            post.mainImage.url +
+            post?.mainImage.url +
             "?w=50&h=50&blur=1000&auto=format"
           }
           priority
