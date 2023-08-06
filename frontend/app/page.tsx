@@ -64,7 +64,7 @@ export default function Home() {
                 that get out of the way and let the user focus on what matters
                 most: The product. Lately, I&apos;ve been building with, React,
                 NextJS, Astro, Tailwind CSS, Sanity, Big Commerce and Shopify in
-                an effort explore the future of e-commerce.
+                an effort to explore the future of e-commerce.
               </p>
 
               <p>

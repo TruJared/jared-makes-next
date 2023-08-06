@@ -20,7 +20,7 @@ export default function ProjectsGrid({ projects }: ProjectsProps) {
     <div className="grid grid-col-1 md:grid-cols-3 lg:grid-cols-4 md:gap-10">
       {projects.map((project, i) => (
         <div
-          className="w-[400px] md:w-[250px] lg:w-[200px] p-3 lg:p-0 mx-auto"
+          className="w-[300px] md:w-[250px] lg:w-[200px] p-3 lg:p-0 mx-auto"
           key={i}
         >
           <Link className="text-white no-underline" href={project.url}>

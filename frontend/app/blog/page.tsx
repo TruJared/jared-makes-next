@@ -3,8 +3,9 @@ import Link from "next/link";
 import sanity from "../../lib/sanity";
 import Tags from "../../components/Tags";
 import Nav from "../../components/Nav";
-import { Key, useEffect, useState } from "react";
+import { Key, useEffect, useState, useMemo } from "react";
 import clsx from "clsx";
+import { use } from "marked";
 
 export default function BlogPosts() {
   const [allPosts, setAllPosts] = useState([]);
@@ -12,8 +13,11 @@ export default function BlogPosts() {
   const [filters, setFilters] = useState([]);
   const [tags, setTags] = useState([]);
 
+
+
   useEffect(() => {
-    if (posts.length < 1 || filters.length < 1) {
+    // prevent an issue where all posts won't reappear after removing all filters
+      if (filters.length < 1 ) {
       sanity
         .fetch(
           `*[_type == "post"] | order(publishedAt desc) {
@@ -36,6 +40,7 @@ export default function BlogPosts() {
         .catch((err) => console.error(err));
       return;
     }
+
 
     const filteredPosts = allPosts.filter((post: any) =>
       post.tags.some((tag: any) => filters.includes(tag.title))
