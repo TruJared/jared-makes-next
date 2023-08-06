@@ -5,7 +5,6 @@ import Tags from "../../components/Tags";
 import Nav from "../../components/Nav";
 import { Key, useEffect, useState, useMemo } from "react";
 import clsx from "clsx";
-import { use } from "marked";
 
 export default function BlogPosts() {
   const [allPosts, setAllPosts] = useState([]);
@@ -13,11 +12,32 @@ export default function BlogPosts() {
   const [filters, setFilters] = useState([]);
   const [tags, setTags] = useState([]);
 
+  useMemo(() => {
+    sanity
+      .fetch(
+        `*[_type == "post"] | order(publishedAt desc) {
+  publishedAt, title, "snippet":excerpt,
+  slug{"url":current},
+  mainImage{...asset->{"url":path}},
+  tags[]->{title}
+}`
+      )
+      .then((data: any) => {
+        const uniqueTags = data
+          .map((post: { tags: any }) => post.tags)
+          .flat()
+          .map((o: { title: any }) => o.title)
+          .filter((v: any, i: any, a: string | any[]) => a.indexOf(v) === i);
 
+        setAllPosts(data);
+      })
+      .catch((err) => console.error(err));
+    return;
+  }, []);
 
   useEffect(() => {
     // prevent an issue where all posts won't reappear after removing all filters
-      if (filters.length < 1 ) {
+    if (filters.length < 1) {
       sanity
         .fetch(
           `*[_type == "post"] | order(publishedAt desc) {
@@ -41,13 +61,11 @@ export default function BlogPosts() {
       return;
     }
 
-
     const filteredPosts = allPosts.filter((post: any) =>
       post.tags.some((tag: any) => filters.includes(tag.title))
     );
     setPosts(filteredPosts);
   }, [filters]);
-
 
   const handleClick = (e: any) => {
     const filter = e.target.innerText;
@@ -60,7 +78,7 @@ export default function BlogPosts() {
 
   return (
     <>
-      <Nav heading={"Blog"} path='/blog'/>
+      <Nav heading={"Blog"} path="/blog" />
       <div className="mt-24 md:mt-16 min-h-screen">
         <div className="mx-auto flex flex-col justify-between items-start">
           <p className="block underline-offset-2 -mb-2">
