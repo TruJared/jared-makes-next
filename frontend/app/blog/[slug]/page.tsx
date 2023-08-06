@@ -36,9 +36,9 @@ export async function generateMetadata(
   }`;
 
   const post = await sanity.fetch(query).then((res: any) => res[0]);
+
   const previousImages = (await parent).openGraph?.images || [];
 
-  if (!post?.url) return notFound();
 
   return {
     title: post?.title,
@@ -66,6 +66,9 @@ export default async function BlogPost({
   }`;
 
   const post = await sanity.fetch(query).then((res: any) => res[0]);
+  console.log(post)
+  // if (!post || !post.url) return notFound();
+
   const body = DOMPurify.sanitize(marked.parse(post?.body));
 
   return (
