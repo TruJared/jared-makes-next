@@ -12,40 +12,16 @@ export default function BlogPosts() {
   const [filters, setFilters] = useState([]);
   const [tags, setTags] = useState([]);
 
-  useMemo(() => {
-    sanity
-      .fetch(
-        `*[_type == "post"] | order(publishedAt desc) {
-  publishedAt, title, "snippet":excerpt,
-  slug{"url":current},
-  mainImage{...asset->{"url":path}},
-  tags[]->{title}
-}`
-      )
-      .then((data: any) => {
-        const uniqueTags = data
-          .map((post: { tags: any }) => post.tags)
-          .flat()
-          .map((o: { title: any }) => o.title)
-          .filter((v: any, i: any, a: string | any[]) => a.indexOf(v) === i);
-
-        setAllPosts(data);
-      })
-      .catch((err) => console.error(err));
-    return;
-  }, []);
-
   useEffect(() => {
-    // prevent an issue where all posts won't reappear after removing all filters
-    if (filters.length < 1) {
+    if (allPosts.length === 0) {
       sanity
         .fetch(
           `*[_type == "post"] | order(publishedAt desc) {
-  publishedAt, title, "snippet":excerpt,
-  slug{"url":current},
-  mainImage{...asset->{"url":path}},
-  tags[]->{title}
-}`
+          publishedAt, title, "snippet":excerpt,
+          slug{"url":current},
+          mainImage{...asset->{"url":path}},
+          tags[]->{title}
+        }`
         )
         .then((data: any) => {
           const uniqueTags = data
@@ -53,18 +29,20 @@ export default function BlogPosts() {
             .flat()
             .map((o: { title: any }) => o.title)
             .filter((v: any, i: any, a: string | any[]) => a.indexOf(v) === i);
+
+          setAllPosts(data);
           setTags(uniqueTags);
           setPosts(data);
         })
         .catch((err) => console.error(err));
-      return;
     }
 
     const filteredPosts = allPosts.filter((post: any) =>
       post.tags.some((tag: any) => filters.includes(tag.title))
     );
-    setPosts(filteredPosts);
-  }, [filters]);
+
+    filters.length > 0 ? setPosts(filteredPosts) : setPosts(allPosts);
+  }, [allPosts, filters]);
 
   const handleClick = (e: any) => {
     const filter = e.target.innerText;
