@@ -5,6 +5,8 @@ import Tags from "../../components/Tags";
 import Nav from "../../components/Nav";
 import { Key, useEffect, useState, useMemo } from "react";
 import clsx from "clsx";
+import { Metadata } from "next";
+
 
 export default function BlogPosts() {
   const [allPosts, setAllPosts] = useState([]);

@@ -5,11 +5,11 @@ import ProjectsGrid from "../../components/ProjectsGrid";
 
 export const metadata: Metadata = {
   title: "Projects - Jared Makes",
-  description: "I'm Jared Truscott. A developer who is passionate about UX, efficiency, and building the future of e-commerce and the web.",
+  description:
+    "I've worked on everything from very basic static HTML sites, to some enterprise level e-commerce sites. Be sure to check back, as I've always got something cooking.",
   openGraph: {
-    title: "Projects - Jared Makes",
-    description: "I'm Jared Truscott. A developer who is passionate about UX, efficiency, and building the future of e-commerce and the web.",
-    images: ['/images/og_image.png']
+
+    images: ["/images/og_image.png"],
   },
 };
 
