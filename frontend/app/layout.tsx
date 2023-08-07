@@ -1,6 +1,7 @@
 import "./reset.css";
 import "./globals.css";
 import type { Metadata } from "next";
+import {Analytics} from "@vercel/analytics/react";
 import { Montserrat } from "next/font/google";
 
 import Footer from "../components/Footer";
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={clsx("min-h-screen max-w-5xl mx-auto", fontFamily.className)}
       >
         {children}
+        <Analytics />
         <Footer />
       </body>
     </html>
