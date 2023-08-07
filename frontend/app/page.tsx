@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import Experience from "../components/Experience";
 
-import portraitImage from "public/images/about.webp";
+import portraitImage from "public/images/about--compressed.webp";
 import Nav from "../components/Nav";
 
 export const metadata: Metadata = {
@@ -29,12 +29,8 @@ export default function Home() {
               <Image
                 src={portraitImage}
                 alt=""
-                sizes="(max-width: 639px) 300w, (max-width: 1023px) 400w, 800w"
-                className="aspect-square rounded-xl object-cover"
+                className="aspect-square rounded-xl"
                 placeholder="blur"
-                blurDataURL={
-                  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mMU1uC4BgABtAEbO2PbOQAAAABJRU5ErkJggg=="
-                }
                 priority
               />
             </div>
