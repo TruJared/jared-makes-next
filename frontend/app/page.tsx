@@ -29,8 +29,7 @@ export default function Home() {
               <Image
                 src={portraitImage}
                 alt=""
-                width={400}
-                height={400}
+                sizes="(max-width: 639px) 300w, (max-width: 1023px) 400w, 800w"
                 className="aspect-square rounded-xl object-cover"
                 placeholder="blur"
                 blurDataURL={
