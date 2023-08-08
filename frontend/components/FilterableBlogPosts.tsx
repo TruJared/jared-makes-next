@@ -2,46 +2,26 @@
 import Link from "next/link";
 import sanity from "../lib/sanity";
 import Tags from "./Tags";
-import { Key, useEffect, useState } from "react";
+import { Key, Suspense, useEffect, useState } from "react";
 import clsx from "clsx";
 
-export default function FilterableBlogPosts() {
-  const [allPosts, setAllPosts] = useState([]);
+export default function FilterableBlogPosts({ allPosts }: any) {
   const [posts, setPosts] = useState([]);
   const [filters, setFilters] = useState([]);
-  const [tags, setTags] = useState([]);
+
+  const tags = allPosts
+    .map((post: { tags: any }) => post.tags)
+    .flat()
+    .map((o: { title: any }) => o.title)
+    .filter((v: any, i: any, a: string | any[]) => a.indexOf(v) === i);
 
   useEffect(() => {
-    if (allPosts.length === 0) {
-      sanity
-        .fetch(
-          `*[_type == "post"] | order(publishedAt desc) {
-          publishedAt, title, "snippet":excerpt,
-          slug{"url":current},
-          mainImage{...asset->{"url":path}},
-          tags[]->{title}
-        }`
-        )
-        .then((data: any) => {
-          const uniqueTags = data
-            .map((post: { tags: any }) => post.tags)
-            .flat()
-            .map((o: { title: any }) => o.title)
-            .filter((v: any, i: any, a: string | any[]) => a.indexOf(v) === i);
-
-          setAllPosts(data);
-          setTags(uniqueTags);
-          setPosts(data);
-        })
-        .catch((err) => console.error(err));
-    }
-
     const filteredPosts = allPosts.filter((post: any) =>
       post.tags.some((tag: any) => filters.includes(tag.title))
     );
 
     filters.length > 0 ? setPosts(filteredPosts) : setPosts(allPosts);
-  }, [allPosts, filters]);
+  }, [filters]);
 
   const handleClick = (e: any) => {
     const filter = e.target.innerText;
@@ -73,23 +53,25 @@ export default function FilterableBlogPosts() {
           </button>
         ))}
       </div>
+
       <div className="mt-5 pr-10">
-        {posts.map((post: any, i: Key) => (
-          <div className="max-w-4xl p-3 my-2" key={i}>
-            <Link className="no-underline" href={`/blog/${post.slug.url}`}>
-              <h2 className="font-semibold text-2xl mb-1">{post.title}</h2>
-              <p className="text-sm text-secondary-300 mb-1 ml-2">
-                {new Date(post.publishedAt).toLocaleDateString()}
-              </p>
-              <p className="text-white tracking-wide leading-6 border-t-2 border-accent-3 pt-2 px-3">
-                {post.snippet} ... <span className="underline">read more</span>
-              </p>
-              <div className="mx-3 my-1 hover:cursor-not-allowed">
-                <Tags tags={post.tags} />
-              </div>
-            </Link>
-          </div>
-        ))}
+          {posts.map((post: any, i: Key) => (
+            <div className="max-w-4xl p-3 my-2" key={i}>
+              <Link className="no-underline" href={`/blog/${post.slug.url}`}>
+                <h2 className="font-semibold text-2xl mb-1">{post.title}</h2>
+                <p className="text-sm text-secondary-300 mb-1 ml-2">
+                  {new Date(post.publishedAt).toLocaleDateString()}
+                </p>
+                <p className="text-white tracking-wide leading-6 border-t-2 border-accent-3 pt-2 px-3">
+                  {post.snippet} ... <span className="underline">read more</span>
+                </p>
+                <div className="mx-3 my-1 hover:cursor-not-allowed">
+                  <Tags tags={post.tags} />
+                </div>
+              </Link>
+            </div>
+          ))}
+
       </div>
     </div>
   );

@@ -2,6 +2,8 @@ import Nav from "../../components/Nav";
 import FilterableBlogPosts from "../../components/FilterableBlogPosts";
 
 import { Metadata } from "next";
+import sanity from "../../lib/sanity";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Blog - Jared Makes",
@@ -13,15 +15,30 @@ export const metadata: Metadata = {
   },
 };
 
+async function getPosts() {
+
+  return sanity
+    .fetch(
+      `*[_type == "post"] | order(publishedAt desc) {
+          publishedAt, title, "snippet":excerpt,
+          slug{"url":current},
+          mainImage{...asset->{"url":path}},
+          tags[]->{title}
+        }`)
+}
+
 
 
 export default async function BlogPage() {
+  const posts = await getPosts();
 
   return (
     <>
       <Nav heading={"Blog"} path="/blog" />
       <div className="mt-24 md:mt-16 min-h-screen">
-        <FilterableBlogPosts />
+
+          <FilterableBlogPosts allPosts={posts} />
+
       </div>
     </>
   );
