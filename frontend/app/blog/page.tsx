@@ -35,7 +35,7 @@ export default async function BlogPage() {
   return (
     <>
       <Nav heading={"Blog"} path="/blog" />
-      <div className="mt-24 md:mt-16 min-h-screen">
+      <div className="mt-16 min-h-screen">
 
           <FilterableBlogPosts allPosts={posts} />
 
