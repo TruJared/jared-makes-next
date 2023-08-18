@@ -62,6 +62,7 @@ export default async function BlogPost({
       <article
         className={`
       mt-2
+      mb-32
       mx-auto
       min-h-screen
       prose
@@ -85,7 +86,8 @@ export default async function BlogPost({
       prose-pre:shadow-md
       prose-pre:overflow-x-auto
       prose-pre:font-mono
-      prose-pre:m-5
+      prose-pre:my-5
+      prose-pre:mx-2
       prose-img:mx-auto
       prose-img:shadow-md
       prose-video:mx-auto
