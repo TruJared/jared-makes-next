@@ -40,7 +40,7 @@ export default async function ProjectsPage() {
       {other && (
         <div className="my-24 md:my-16">
           <h2 className="mb-4">Other Projects</h2>
-          <p className="mb-8 ml-4">While the bulk of my work involved building, migrating, maintaining the sites for online stores, I have still found time for some other fun projects..</p>
+          <p className="mb-8 ml-4">While the bulk of my work involved building, migrating, and maintaining the sites for online stores, I have still found time for some other fun projects..</p>
           <ProjectsGrid projects={other} />
         </div>
       ) }
