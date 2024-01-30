@@ -9,6 +9,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: 'https://jaredmakes.com/projects',
       lastModified: new Date(),
-    }
+    },
+    {
+      url: 'https://jaredmakes.com/blog',
+      lastModified: new Date(),
+    },
   ]
 }

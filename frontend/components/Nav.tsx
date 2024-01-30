@@ -11,7 +11,7 @@ export interface NavProps {
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Projects", href: "/projects" },
-  // { name: "Blog", href: "/blog" },
+  { name: "Blog", href: "/blog" },
 ];
 
 export default function Nav({ heading = null, path }: NavProps) {
