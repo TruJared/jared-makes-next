@@ -1,10 +1,11 @@
-'use client'
+
 import Nav from "../../components/Nav";
 import FilterableBlogPosts from "../../components/FilterableBlogPosts";
 
 import { Metadata } from "next";
 import sanity from "../../lib/sanity";
 
+// todo - this should client side render, but need to remove metadata //
 export const metadata: Metadata = {
   title: "Blog - Jared Makes",
   description:
