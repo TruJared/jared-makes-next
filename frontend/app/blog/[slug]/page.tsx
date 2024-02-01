@@ -42,7 +42,14 @@ export default async function BlogPost({
 	params,
 }: {
 	params: { slug: string };
-}) {
+	}) {
+
+	// remove warnings
+	marked.use({
+  mangle: false,
+  headerIds: false,
+});
+
 	const { slug } = params;
 	const query = `*[_type == 'post' && slug.current == '${slug}'] {
     publishedAt, title, body, "snippet":excerpt,
@@ -69,7 +76,6 @@ export default async function BlogPost({
       prose-h1:p-0.5
       prose-a:text-secondary-200
       prose-strong:text-white
-
       prose-img:rounded-xl
       prose-img:border-2
       prose-img:border-accent-3
@@ -77,12 +83,13 @@ export default async function BlogPost({
       prose-li:text-white/90
       prose-ul:text-white/90
       prose-ol:text-white/90
-
       prose-img:mx-auto
       prose-img:shadow-md
       prose-video:mx-auto
       prose-p:text-white/80
       prose-p:text-lg
+			prose-code:text-white
+			prose-code:p-1
       `}
 			>
 				<Link className="float-right ml-3" href="/blog">

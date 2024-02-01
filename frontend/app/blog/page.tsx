@@ -1,9 +1,9 @@
+'use client'
 import Nav from "../../components/Nav";
 import FilterableBlogPosts from "../../components/FilterableBlogPosts";
 
 import { Metadata } from "next";
 import sanity from "../../lib/sanity";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Blog - Jared Makes",
@@ -36,9 +36,7 @@ export default async function BlogPage() {
     <>
       <Nav heading={"Blog"} path="/blog" />
       <div className="mt-16 min-h-screen">
-
           <FilterableBlogPosts allPosts={posts} />
-
       </div>
     </>
   );
